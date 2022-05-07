@@ -1,23 +1,38 @@
 import './App.css';
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector, useDispatch, connect } from 'react-redux'
+import dataSlice, { fetchData, setData, incrementId, decrementId, inputId, clear } from './features/dataSlice';
+import { useEffect } from 'react';
+
+const mapStateToProps = (state) => ({
+  objectId: state.data.objectId
+})
+
+
 
 function App() {
   // your logic goes here!
+  const dispatch = useDispatch()
+  const data = useSelector((state) => state.data)
+
+  useEffect(() =>  {
+    dispatch(fetchData())
+    },[data.objectId]
+  )
 
   return (
     <div className="App">
       <div>
-        <button onClick={() => {}}>Trigger Thunk</button>
-        <button onClick={() => {}}>Clear</button>
-        <button onClick={() => {}}>Next</button>
-        <button onClick={() => {}}>Back</button>
+        <button onClick={() => {dispatch(fetchData())}}>Trigger Thunk</button>
+        <button onClick={() => {dispatch(clear())}}>Clear</button>
+        <button onClick={() => {dispatch(incrementId())}}>Next</button>
+        <button onClick={() => {dispatch(decrementId())}}>Back</button>
       </div>
       <input onChange={(e) => { }} />
       <div>
-        {/* Once you have plugged everything in, render the image here! */}
+        {data.apiData.primaryImage ? <img src={data.apiData.primaryImage} alt={data.apiData.title}/> : <p>Waiting for image</p>}
       </div>
     </div>
   );
 }
 
-export default App;
+export default connect(mapStateToProps)(App);

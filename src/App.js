@@ -10,7 +10,6 @@ const mapStateToProps = (state) => ({
 
 
 function App() {
-  // your logic goes here!
   const dispatch = useDispatch()
   const data = useSelector((state) => state.data)
 
@@ -27,7 +26,7 @@ function App() {
         <button onClick={() => {dispatch(incrementId())}}>Next</button>
         <button onClick={() => {dispatch(decrementId())}}>Back</button>
       </div>
-      <input onChange={(e) => { }} />
+      <input value={data.objectId} onChange={(e) => {dispatch(inputId(Number(e.target.value)))}} />
       <div>
         {data.apiData.primaryImage ? <img src={data.apiData.primaryImage} alt={data.apiData.title}/> : <p>Waiting for image</p>}
       </div>

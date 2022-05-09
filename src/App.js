@@ -16,7 +16,7 @@ function App() {
 
   useEffect(() =>  {
     dispatch(fetchData())
-    },[data.objectId]
+    },[data.objectId, dispatch]
   )
 
   return (
